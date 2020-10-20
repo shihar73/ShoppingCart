@@ -47,7 +47,7 @@ router.get('/', function (req, res, next) {
 
     },
 
-
+      
   ]
 
   res.render('index', { products,title :"Shoping" } );
