@@ -6,9 +6,13 @@ var productHelpers=require('../helpers/product-helpers')
 router.get('/', function (req, res, next) {
 
   productHelpers.getAllProduct().then((products)=>{
-    res.render('users/viwe-product', { products,title :"Shoping" } );
+    res.render('users/viwe-product', { products} );
 
   })
 });
+
+router.get('/login',(req,res)=>{
+ res.render('users/login')
+})
 
 module.exports = router;

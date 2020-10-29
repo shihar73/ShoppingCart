@@ -7,14 +7,14 @@ var router = express.Router();
 router.get('/', function (req, res, next) {
 productHelpers.getAllProduct().then((products)=>{
 console.log(products);
-  res.render("admin/view-products", { products, title: "Admin-Panel", admin: true })
+  res.render("admin/view-products", { products, admin: true })
 
 })
 });
 
 // GET admin add product
 router.get('/add-product', (req, res) => {
-  res.render("admin/add-product", { title: "Add-products" ,admin:true})
+  res.render("admin/add-product", {admin:true})
 
 });
 
