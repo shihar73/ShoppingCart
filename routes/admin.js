@@ -5,30 +5,30 @@ var router = express.Router();
 
 /* GET admin product listing. */
 router.get('/', function (req, res, next) {
-productHelpers.getAllProduct().then((products)=>{
-console.log(products);
-  res.render("admin/view-products", { products, admin: true })
+  productHelpers.getAllProduct().then((products) => {
+    // console.log(products);
+    res.render("admin/view-products", { products, admin: true })
 
-})
+  })
 });
 
 // GET admin add product
 router.get('/add-product', (req, res) => {
-  res.render("admin/add-product", {admin:true})
+  res.render("admin/add-product", { admin: true })
 
 });
 
 //POST data reseving
 router.post('/add-product', (req, res) => {
-  console.log(req.body);
-  console.log(req.files.image);       
+  // console.log(req.body);
+  // console.log(req.files.image);
 
   productHelpers.addproduct(req.body, (id) => {
     let image = req.files.image
     image.mv('./public/product-images/' + id + ".jpg", (err, done) => {
       if (!err) {
-       // res.render('admin/add-product', { title: "Add-products"  ,admin:true})
-       res.redirect("/admin")
+        // res.render('admin/add-product', { title: "Add-products"  ,admin:true})
+        res.redirect("/admin")
       } else {
         console.log(err);
       }
@@ -36,6 +36,14 @@ router.post('/add-product', (req, res) => {
   })
 
 
-}) 
+})
+
+router.get('/delete-product/:id', (req, res) => {
+  let porId = req.params.id
+  console.log(porId);
+  productHelpers.deleteProduct(porId).then((responce)=>{
+    res.redirect("/admin/")
+  })
+})
 
 module.exports = router;
