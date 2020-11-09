@@ -1,31 +1,31 @@
 <section>
     <div class="container">
         <div class="row">
-            <form action="/admin/add-product" method="POST" enctype="multipart/form-data" >
-            <h1 class="text-center">Add Product</h1>
+            <form action="/admin/edit-product/{{product._id}}" method="POST" enctype="multipart/form-data" >
+            <h1 class="text-center">Edit Product</h1>
                 <div class="form-group">
                     <label for="formGroupExampleInput">Name</label>
                     <input type="text" name="name" class="form-control" id="formGroupExampleInput"
-                        placeholder="Name">
+                        placeholder="Name" value="{{product.name}}">
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Category</label>
                     <input type="text" name="category" class="form-control" id="formGroupExampleInput2"
-                        placeholder="Category">
+                        placeholder="Category" value="{{product.category}}">
                 </div>
                 <div class="form-group">
                     <label for="formGroupExampleInput2">Price</label>
                     <input type="text" name="price" class="form-control" id="formGroupExampleInput2"
-                        placeholder="Price">
+                        placeholder="Price" value="{{product.price}}">
                 </div>
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Description</label>
-                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3">{{product.description}}</textarea>
                 </div>
                 <div class="form-group">
-                    <label for="exampleFormControlFile1">Image</label>
+                    <label for="exampleFormControlFile1" class="text-center">Image</label>
                     <div class="mb-4">
-                    <img src="" alt="" style="height: auto; width: 250px;" id="imgView">
+                    <img src="/product-images/{{product._id}}.jpg" alt="" style="height: auto; width: 250px;" id="imgView">
                     </div>
                     <input type="file" class="form-control-file" name="image" id="exampleFormControlFile1" onchange="viewImage(event)">
                 </div>
@@ -34,6 +34,7 @@
         </div>
     </div>
 </section>
+
 <script>
     function viewImage(event){
         document.getElementById('imgView').src=URL.createObjectURL(event.target.files[0])

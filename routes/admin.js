@@ -20,14 +20,10 @@ router.get('/add-product', (req, res) => {
 
 //POST data reseving
 router.post('/add-product', (req, res) => {
-  // console.log(req.body);
-  // console.log(req.files.image);
-
   productHelpers.addproduct(req.body, (id) => {
     let image = req.files.image
     image.mv('./public/product-images/' + id + ".jpg", (err, done) => {
       if (!err) {
-        // res.render('admin/add-product', { title: "Add-products"  ,admin:true})
         res.redirect("/admin")
       } else {
         console.log(err);
@@ -41,9 +37,28 @@ router.post('/add-product', (req, res) => {
 router.get('/delete-product/:id', (req, res) => {
   let porId = req.params.id
   console.log(porId);
-  productHelpers.deleteProduct(porId).then((responce)=>{
+  productHelpers.deleteProduct(porId).then((responce) => {
     res.redirect("/admin/")
   })
 })
+
+
+router.get('/edit-product/:id', async (req, res) => {
+  let product = await productHelpers.getProductDetails(req.params.id)
+  res.render('admin/edit-product',{product})
+})
+
+router.post("/edit-product/:id",(req,res)=>{
+  console.log(req.params.id);
+  productHelpers.updateProduct(req.params.id,req.body).then(()=>{
+    res.redirect("/admin")
+    if(req.files.image){
+      let id=req.params.id
+      let image = req.files.image
+      image.mv('./public/product-images/' + id + ".jpg")
+    }
+  })
+})
+
 
 module.exports = router;

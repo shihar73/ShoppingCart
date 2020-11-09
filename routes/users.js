@@ -62,6 +62,4 @@ router.get("/cart", verifyLogin, (req, res) => {
 })
 
 
-
-
 module.exports = router;
